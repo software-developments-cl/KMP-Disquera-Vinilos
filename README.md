@@ -1,4 +1,5 @@
 # KMP-Disquera-Vinilos
 Proyecto KMP para Windows, IOS y Android
 
-![kmp git team photo](https://github.com/user-attachments/assets/e7b5b7ba-cae9-4323-a1e3-32e9fd8bb066)
+
+![img disquera vinilos fondo readme 2](https://github.com/user-attachments/assets/b5ff4db4-cd39-4e55-9cbe-2ff411cd9faf)
