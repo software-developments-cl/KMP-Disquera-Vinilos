@@ -7,5 +7,5 @@ import com.sakhura.disqueramp.navigation.PreviewNecesaria
 @Preview(showBackground = true)
 @Composable
 private fun Demo() {
-    //PreviewNecesaria()
+    PreviewNecesaria()
 }
