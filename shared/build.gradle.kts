@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrainsCompose)
 }
 
 kotlin {
@@ -28,8 +30,25 @@ kotlin {
     }
 
     sourceSets {
+
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(compose.uiTooling)
+            // Dependencia específica para Android si es necesario
+            implementation(libs.kotlinx.coroutines.android)
+        }
         commonMain.dependencies {
             //put your multiplatform dependencies here
+            // DEPENDENCIAS ESENCIALES PARA COMPOSE
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            // Coroutines
+            implementation(libs.kotlinx.coroutines.core)
+            //navigation compose
+            implementation(libs.navigation.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
