@@ -1,5 +1,6 @@
 package com.sakhura.disqueramp.navigation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,10 +17,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PreviewNecesaria() {
+fun PreviewNecesaria(onClick: () -> Unit) {
     Card(
         modifier = Modifier.size(128.dp)
-            .clip(RoundedCornerShape(16.dp)),
+            .clip(RoundedCornerShape(16.dp))
+            .clickable{
+                onClick()
+            },
         elevation = CardDefaults.cardElevation(8.dp),
         border = CardDefaults.outlinedCardBorder()
     ) {
