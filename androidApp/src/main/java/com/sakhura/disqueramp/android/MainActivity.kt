@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingView(text: String, context: Context) {
+fun GreetingView(text: String, context: Context?) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -52,6 +52,6 @@ fun GreetingView(text: String, context: Context) {
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
-        //GreetingView(Greeting().greet())
+        GreetingView(Greeting().greet(), null)
     }
 }
