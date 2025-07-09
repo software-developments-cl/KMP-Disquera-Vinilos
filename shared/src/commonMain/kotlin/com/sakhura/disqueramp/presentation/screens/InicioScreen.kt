@@ -34,8 +34,10 @@ fun InicioScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        //Para los estados del sms
         val sms1State = remember { mutableStateOf(false) }
         val sms2State = remember { mutableStateOf(false) }
+
         Text("Soy inicio screen")
         ImageSwitcher()
         ButtonsPersonalizado(
@@ -50,17 +52,22 @@ fun InicioScreen() {
             onClick = {
                 sms2State.value = !sms2State.value
             })
+
+        //Corutina para que desaparezca el sms
         LaunchedEffect(sms1State.value || sms2State.value) {
             delay(2000)
             sms1State.value = false
             sms2State.value = false
         }
+
+        //Aparece y desaparece segun valores
         if (sms1State.value || sms2State.value) {
             Text("Navegue por el navbar ⬇️")
         }
     }
 }
 
+/**Imagen cambiante cada 3 segundos*/
 @Composable
 private fun ImageSwitcher() {
     val images = remember {
@@ -87,6 +94,9 @@ private fun ImageSwitcher() {
     )
 }
 
+/**Boton personalizado para texto y color
+ * @param text texto del boton
+ * @param color color del boton*/
 @Composable
 private fun ButtonsPersonalizado(text: String, color: Color, onClick: () -> Unit) {
     Button(
