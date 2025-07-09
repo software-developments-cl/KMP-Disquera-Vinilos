@@ -1,6 +1,8 @@
 package com.sakhura.disqueramp.presentation.navigation
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -9,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -16,10 +19,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.sakhura.disqueramp.presentation.screens.DiscosScreen
 import com.sakhura.disqueramp.presentation.screens.InicioScreen
 
-
+/**Pantalla principal que aloja toda el contenido del navbar y cada pantalla*/
 @Composable
 fun AppMainScreen() {
     val navHostController = rememberNavController()
@@ -48,17 +50,33 @@ private fun AppNavigationGraph(navController: NavHostController) {
             InicioScreen()
         }
         composable(route = NavRoutes.Discos.name) {
-            DiscosScreen()
+//            DiscosScreen()
+            DemoScreen("Discos 💿")
         }
         composable(route = NavRoutes.Carrito.name) {
-//            LibraryScreen()
+//            Carrito()
+            DemoScreen("Carrito 🛒")
         }
         composable(route = NavRoutes.VerPedidos.name) {
-//            ProfileScreen()
+//            VerPedidos()
+            DemoScreen("Ver Pedidos 🧧")
         }
         composable(route = NavRoutes.Perfil.name) {
-//            ProfileScreen()
+//            Perfil()
+            DemoScreen("Perfil 🧗")
         }
+    }
+}
+
+//Luego se borrara
+@Composable
+private fun DemoScreen(text: String) {
+    Column(
+        modifier = Modifier.padding(16.dp).fillMaxSize(),
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+        verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+    ) {
+        Text("Estás en $text")
     }
 }
 
@@ -72,11 +90,21 @@ private fun NavigationBarMade(navController: NavHostController) {
         bottomNavItems.forEach { topLevelRoute ->
             NavigationBarItem(
                 label = { Text(text = topLevelRoute.name) },
-                icon = {/*TODO icono por aqui*/ },
+                icon = {
+                    when (topLevelRoute) {
+                        NavRoutes.Home -> Text("🏠")
+                        NavRoutes.Discos -> Text("💿")
+                        NavRoutes.Carrito -> Text("🛒")
+                        NavRoutes.VerPedidos -> Text("📋")
+                        NavRoutes.Perfil -> Text(" 😀 ")
+                    }
+                },
                 selected = currentDestination?.hierarchy?.any {
                     it.route == topLevelRoute.name
                 } == true,
                 onClick = {
+                    println("Current destination: ${currentDestination?.route}")
+                    println("Navigating to: ${topLevelRoute.name}")
                     navController.navigate(topLevelRoute.name) {
                         // Pop up to the start destination of the graph to
                         // avoid building up a large stack of destinations

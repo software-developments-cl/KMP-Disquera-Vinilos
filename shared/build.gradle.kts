@@ -34,6 +34,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(compose.uiTooling)
+            // Dependencia específica para Android si es necesario
+            implementation(libs.kotlinx.coroutines.android)
         }
         commonMain.dependencies {
             //put your multiplatform dependencies here
@@ -42,6 +44,9 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.resources)
+            // Coroutines
+            implementation(libs.kotlinx.coroutines.core)
             //navigation compose
             implementation(libs.navigation.compose)
         }
