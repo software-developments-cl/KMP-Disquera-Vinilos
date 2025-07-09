@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PreviewNecesaria(onClick: () -> Unit) {
+fun PreviewNecesaria(onClick: () -> Unit ={}) {
     Card(
         modifier = Modifier.size(128.dp)
             .clip(RoundedCornerShape(16.dp))
