@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.sakhura.disqueramp.Greeting
 import com.sakhura.disqueramp.presentation.navigation.AppMainScreen
+import com.sakhura.disqueramp.presentation.screens.EditarUsuarioPreview
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
 
                     //GreetingView(Greeting().greet(), this)
                     AppMainScreen()
+                    //AppMainScreenPreview()
 
                 }
             }
@@ -54,4 +56,10 @@ fun DefaultPreview() {
     MyApplicationTheme {
         GreetingView(Greeting().greet(), null)
     }
+}
+
+@Preview
+@Composable
+fun AppMainScreenPreview() {
+    EditarUsuarioPreview()
 }

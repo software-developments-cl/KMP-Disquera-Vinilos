@@ -1,23 +1,18 @@
 package com.sakhura.disqueramp.repository
 
-package com.sakhura.disqueramp.repository.mocks // O donde quieras poner tus mocks
-
 import com.sakhura.disqueramp.models.Usuario
-import com.sakhura.disqueramp.repository.UsuarioRepository
-import kotlinx.coroutines.delay // Para simular latencia de red/DB si quieres
 
-class UsuarioRepository : UsuarioRepository {
+class UsuarioRepository {
 
     private val usuariosEnMemoria = mutableListOf<Usuario>()
     private var proximoId = 1 // Para generar IDs simples para la maqueta
 
-    override suspend fun agregarUsuario(usuario: Usuario): Result<Unit> {
-        // delay(500) // Opcional: simular un pequeño retraso
+    suspend fun agregarUsuario(usuario: Usuario): Result<Unit> {
         return try {
             // En una implementación real, el ID podría venir del usuario o ser generado por la DB.
             // Para la maqueta, si el usuario no tiene ID, le asignamos uno.
-            val usuarioConId = if (usuario.id.isBlank()) {
-                usuario.copy(id = (proximoId++).toString())
+            val usuarioConId = if (usuario.id == null) {
+                usuario.copy(id = (proximoId++))
             } else {
                 // Si ya tiene un ID (quizás de una fuente externa o prueba), verificar duplicados
                 if (usuariosEnMemoria.any { it.id == usuario.id }) {
@@ -32,8 +27,7 @@ class UsuarioRepository : UsuarioRepository {
         }
     }
 
-    override suspend fun editarUsuario(usuario: Usuario): Result<Unit> {
-        // delay(500)
+    suspend fun editarUsuario(usuario: Usuario): Result<Unit> {
         return try {
             val indice = usuariosEnMemoria.indexOfFirst { it.id == usuario.id }
             if (indice != -1) {
@@ -47,8 +41,7 @@ class UsuarioRepository : UsuarioRepository {
         }
     }
 
-    override suspend fun consultarUsuario(id: String): Result<Usuario?> {
-        // delay(300)
+    suspend fun consultarUsuario(id: Int): Result<Usuario?> {
         return try {
             val usuario = usuariosEnMemoria.find { it.id == id }
             if (usuario != null) {
@@ -61,8 +54,7 @@ class UsuarioRepository : UsuarioRepository {
         }
     }
 
-    override suspend fun consultarTodosLosUsuarios(): Result<List<Usuario>> {
-        // delay(700)
+    suspend fun consultarTodosLosUsuarios(): Result<List<Usuario>> {
         return try {
             Result.success(ArrayList(usuariosEnMemoria)) // Devolver una copia para evitar modificaciones externas
         } catch (e: Exception) {
@@ -70,10 +62,10 @@ class UsuarioRepository : UsuarioRepository {
         }
     }
 
-    override suspend fun eliminarUsuario(id: String): Result<Unit> {
-        // delay(500)
+    suspend fun olvidarUsuario(id: Int): Result<Unit> {
         return try {
-            val removido = usuariosEnMemoria.removeIf { it.id == id }
+            //val removido = usuariosEnMemoria.removeIf { it.id == id }
+            val removido = usuariosEnMemoria.removeAll { it.id == id }
             if (removido) {
                 Result.success(Unit)
             } else {
@@ -90,16 +82,4 @@ class UsuarioRepository : UsuarioRepository {
         proximoId = 1
     }
 
-    // Método de utilidad para precargar datos (útil para desarrollo/pruebas)
-    fun precargarUsuarios(usuarios: List<Usuario>) {
-        usuarios.forEach { usr ->
-            if (usuariosEnMemoria.none { it.id == usr.id }) {
-                usuariosEnMemoria.add(usr)
-                // Actualizar proximoId si los IDs son numéricos y mayores
-                usr.id.toIntOrNull()?.let { numId ->
-                    if (numId >= proximoId) proximoId = numId + 1
-                }
-            }
-        }
-    }
 }
