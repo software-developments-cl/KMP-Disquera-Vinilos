@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+
 }
 
 kotlin {
@@ -52,6 +53,11 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("androidx.browser:browser:1.8.0")
+    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.compose.compiler:compiler")
+    implementation("androidx.compose.foundation:foundation")
+
 
     // Google Sign-In
     implementation("com.google.android.gms:play-services-auth:20.7.0")
