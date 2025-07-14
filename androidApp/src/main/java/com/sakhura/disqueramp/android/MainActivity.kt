@@ -1,5 +1,6 @@
 package com.sakhura.disqueramp.android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,6 +23,20 @@ class MainActivity : ComponentActivity() {
                     GreetingView(Greeting().greet())
                 }
             }
+        }
+    }
+}
+
+override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+
+    val data = intent?.data
+    if(data != null && data.toString().startsWith("DisqueraKMP://callback")){
+        val code = data.getQueryParameter("code")
+        if( code != null){
+            println("Código recibido: $code")
+        } else{
+            println("No se recibió código")
         }
     }
 }
